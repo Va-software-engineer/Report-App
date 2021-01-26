@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react'
 import { Grid, GridItem, H1, Text, Button } from '@bigcommerce/big-design';
 
 import HomePage from "./components/pages/homePage";
+import HomePagePurchased from "./components/pages/homePagePurchased";
 import ConfigurePage from "./components/pages/configurePage";
 
 export default function Main() {
@@ -38,6 +39,11 @@ export default function Main() {
       }
       {currentPage == 2 &&
       <ConfigurePage
+        setCurrentPage={setCurrentPage}
+      />
+      }
+      {currentPage == 3 &&
+      <HomePagePurchased
         setCurrentPage={setCurrentPage}
       />
       }

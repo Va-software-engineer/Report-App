@@ -1,10 +1,10 @@
 const axios = require('axios')
 
 export const ApiService = {
-  getStoreScripts(params) {
+  updateStorePayment(params) {
     return axios({
-      method: 'get',
-      url: '/api/store_script_details',
+      method: 'post',
+      url: '/api/payment',
       params,
     });
   },
