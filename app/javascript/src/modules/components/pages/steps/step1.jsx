@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {
   Panel,
   Input,
@@ -6,9 +6,30 @@ import {
   H2,
   Small, Text,
 } from "@bigcommerce/big-design";
+import {ApiService} from "../../../../services/apiServices";
 
-export default function Step1() {
-  const { channelName, setChannelName } = useState('Sample App');
+export default function Step1(props) {
+
+  useEffect(() => {
+    props.setDataSetId(props.storeInfo.data_set_id)
+    props.setProjectId(props.storeInfo.project_id)
+  },[]);
+
+  const updateProjectId = (id) => {
+    props.setProjectId(id);
+    ApiService.updateStorePropertyId({
+      store_id: props.storeInfo.id,
+      project_id: id
+    })
+  }
+
+  const updateDataSetId = (id) => {
+    props.setDataSetId(id);
+    ApiService.updateStoreDataSetId({
+      store_id: props.storeInfo.id,
+      data_set_id: id
+    })
+  }
 
   return (
     <Panel
@@ -34,9 +55,9 @@ export default function Step1() {
       <div style={{width: '48%', display: 'inline-block'}}>
         <Input
           width={'100px'}
-          value={channelName}
+          value={props.projectId}
           onChange={(e) => {
-            setChannelName(e.target.value);
+            updateProjectId(e.target.value);
           }}
           label=""
           placeholder=""
@@ -49,9 +70,9 @@ export default function Step1() {
       <div style={{width: '48%', display: 'inline-block', marginBottom: '10px'}}>
         <Input
           width={'100px'}
-          value={channelName}
+          value={props.dataSetId}
           onChange={(e) => {
-            setChannelName(e.target.value);
+            updateDataSetId(e.target.value);
           }}
           label=""
           placeholder=""

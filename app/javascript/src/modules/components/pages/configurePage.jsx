@@ -26,9 +26,9 @@ export default function configurePage(props) {
         </Text>
       </div>
 
-      <H2>Configure to to access Cost of Goods Sold & Profit report</H2>
+      <H2>Configure to to access {props.currentProfitName}</H2>
       <Steps step={step} setStep={setStep}/>
-      <ConfigurationSteps step={step} setStep={setStep}/>
+      <ConfigurationSteps step={step} setStep={setStep} storeInfo={props.storeInfo} currentProfitName={props.currentProfitName}/>
       <Footer>
         <Box>
           <Button variant="subtle" onClick={() => props.setCurrentPage(1)}>

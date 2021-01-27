@@ -9,18 +9,26 @@ export const ApiService = {
     });
   },
 
-  updateScript(params) {
+  getStoreDetails(params) {
     return axios({
-      method: 'post',
-      url: '/api/update_script',
+      method: 'get',
+      url: 'api/store_details',
       params,
     });
   },
 
-  updateStoreProperty(params) {
+  updateStoreDataSetId(params) {
     return axios({
       method: 'post',
-      url: '/api/update_store_property',
+      url: '/api/update_store_data_set_id',
+      params,
+    });
+  },
+
+  updateStorePropertyId(params) {
+    return axios({
+      method: 'post',
+      url: '/api/update_store_property_id',
       params,
     });
   },

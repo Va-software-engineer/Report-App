@@ -1,10 +1,38 @@
 import React, {useState, useEffect} from 'react'
 
 import { Grid, GridItem, H1, Text, Button, Form,  FormGroup, Checkbox, Link, Message} from '@bigcommerce/big-design';
+import {ApiService} from '../../../services/apiServices';
+import {alertsManager} from "../../../app";
 
 export default function HomePage(props) {
   const [checked, setChecked] = useState(false);
   const handleChange = () => setChecked(!checked);
+
+  const purchaseReport = () => {
+    if(!checked){
+      AddAlert('Error', 'Please check the payment check box!', 'error')
+      return
+    }
+    props.setCurrentPage(3);
+    ApiService.updateStorePayment({store_id: props.storeInfo.id})
+    AddAlert('Success', 'Payment Successfully paid!', 'success')
+
+  }
+
+  function AddAlert(title, details, type) {
+    const alert = {
+      header: title,
+      messages: [
+        {
+          text: details,
+        },
+      ],
+      type: type,
+      onClose: () => null,
+      autoDismiss: true
+    }
+    alertsManager.add(alert);
+  }
 
   return (
     <div>
@@ -12,7 +40,7 @@ export default function HomePage(props) {
         <GridItem>
           <H1 style={{width: '100%'}}>Get pre-build Google Data Studio Ecommerce reports by BigCommerce</H1>
           <Text>Get started with advanced Google Data Studio reports for a one time fee.</Text>
-          <Button actionType="normal" isLoading={false} variant="primary" onClick={() => props.setCurrentPage(3)}>
+          <Button actionType="normal" isLoading={false} variant="primary" onClick={ () => purchaseReport()}>
             Purchase the reports
           </Button>
         </GridItem>
@@ -101,19 +129,18 @@ export default function HomePage(props) {
                 </FormGroup>
               </Form>
               <div style={{marginTop: '20px', textAlign: 'center'}}>
-                <Link href="#">
+                <Link href="https://www.bigcommerce.com/terms/" target={'_blank'}>
                   See full terms and conditions
                 </Link>
 
                 <Message type="warning" messages={[{ text: "Please check the box so we that you understand you'll be charged for a one time fee." }]} marginVertical="medium" />
-                <Button actionType="normal" isLoading={false} variant="primary">
+                <Button actionType="normal" isLoading={false} variant="primary" onClick={() => purchaseReport()}>
                   Purchase the reports for 299$
                 </Button>
               </div>
             </div>
 
             <div style={{width: '45%', margin: 'auto'}}>
-
             </div>
           </div>
         </div>

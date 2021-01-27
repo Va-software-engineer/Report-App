@@ -7,6 +7,11 @@ export default function HomePagePurchased(props) {
   const [showThankYouMessage, setShowThankYouMessage] = useState(true);
   const handleChange = () => setChecked(!checked);
 
+  const setProfitType = (name) => {
+    props.setCurrentPage(2);
+    props.setCurrentProfitName(name)
+  }
+
   return (
     <div style={{marginLeft: '7%'}}>
 
@@ -35,10 +40,10 @@ export default function HomePagePurchased(props) {
             <div style={{background: "gray", width: '350px', height: '250px', borderRadius: '5px 5px 0px 0px'}}></div>
             <div style={{marginLeft: '5%'}}>
               <h4>Cost of Goods sold and profit</h4>
-              <Link href="#">View sample</Link>
+              <Link href="https://datastudio.google.com/reporting/6d69d9c2-f355-48e3-9e65-eaee5bb7d224">View sample</Link>
               <div style={{marginTop: '8px'}}>
                 <Text style={{marginTop: '30px'}}>Show how much profit I am making over time relative to my cost.</Text>
-                <Button variant="primary" onClick={() => props.setCurrentPage(2)}>Start Configuration</Button>
+                <Button variant="primary" onClick={() => setProfitType('Cost of Goods sold and profit')}>Start Configuration</Button>
               </div>
             </div>
           </div>
@@ -48,10 +53,10 @@ export default function HomePagePurchased(props) {
             <div style={{background: "gray", width: '350px', height: '250px', borderRadius: '5px 5px 0px 0px'}}></div>
             <div style={{marginLeft: '5%'}}>
               <h4>Revenue by State </h4>
-              <Link href="#">View sample</Link>
+              <Link href="https://datastudio.google.com/reporting/a68ac123-8903-432c-8704-26580f72965a">View sample</Link>
               <div style={{marginTop: '8px'}}>
                 <Text style={{marginTop: '30px'}}>Show how much profit I am making over time relative to my cost.</Text>
-                <Button variant="primary" onClick={() => props.setCurrentPage(2)}>Start Configuration</Button>              </div>
+                <Button variant="primary" onClick={() => setProfitType('Revenue by State')}>Start Configuration</Button>              </div>
             </div>
           </div>
         </GridItem>
@@ -61,10 +66,10 @@ export default function HomePagePurchased(props) {
             <h4 style={{marginLeft: '5%'}}></h4>
             <div style={{marginLeft: '5%'}}>
               <h4>Revenue by Product Category & Brand</h4>
-              <Link href="#">View sample</Link>
+              <Link href="https://datastudio.google.com/reporting/5b118e91-879b-41e6-9aa0-9340befc89ca">View sample</Link>
               <div style={{marginTop: '8px'}}>
                 <Text style={{marginTop: '30px'}}>Show how much profit I am making over time relative to my cost.</Text>
-                <Button variant="primary" onClick={() => props.setCurrentPage(2)}>Start Configuration</Button>
+                <Button variant="primary" onClick={() => setProfitType('Revenue by Product Category & Brand')}>Start Configuration</Button>
               </div>
             </div>
           </div>
