@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get '/auth/:name/callback', to: 'omniauths#callback'
   get '/load', to: 'omniauths#load'
   get '/uninstall', to: 'omniauths#uninstall'
+  get 'auth/bigcommerce/api/store_details', to: 'api/queries#store_details'
 
   # APIs
   namespace :api do
