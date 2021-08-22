@@ -71,6 +71,13 @@ export default function Main(props) {
           storeInfo={storeInfo}
         />
         }
+        {currentPage == -5 &&
+        <HomePagePurchased
+          setCurrentPage={setCurrentPage}
+          setCurrentProfitName={setCurrentProfitName}
+          storeInfo={storeInfo}
+        />
+        }
       </>
       }
     </>

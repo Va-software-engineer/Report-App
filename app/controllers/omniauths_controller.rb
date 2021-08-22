@@ -33,6 +33,7 @@ class OmniauthsController < ApplicationController
       logo = Bigcommerce::StoreInfo.info(connection: connection)[:logo]
       session[:store_logo] = logo.present? ? logo[:url] : 'assets/default_logo.png'
     end
+
     render 'welcome/home', status: 200
   end
 
@@ -61,10 +62,27 @@ class OmniauthsController < ApplicationController
     session[:store_id] = @store.id
     logo = Bigcommerce::StoreInfo.info(connection: connection)[:logo]
     session[:store_logo] = logo.present? ? logo[:url] : 'assets/default_logo.png'
+
     render 'welcome/home', status: 200
   end
 
   private
+
+
+  def parse_signed_payload_jwt
+    signed_payload = params[:signed_payload_jwt]
+    message_parts = signed_payload.split('.')
+    encoded_json_payload = message_parts[0]
+    encoded_hmac_signature = message_parts[1]
+    payload = Base64.decode64(encoded_json_payload)
+    provided_signature = Base64.decode64(encoded_hmac_signature)
+    expected_signature = sign_payload(bc_client_secret, payload)
+    if secure_compare(expected_signature, provided_signature)
+      return JSON.parse(payload)
+    end
+
+    nil
+  end
 
   def parse_signed_payload
     signed_payload = params[:signed_payload]
@@ -86,6 +104,21 @@ class OmniauthsController < ApplicationController
   end
 
   def secure_compare(a, b)
+    return false if a.blank? || b.blank? || a.bytesize != b.bytesize
+
+    l = a.unpack "C#{a.bytesize}"
+
+    res = 0
+    b.each_byte { |byte| res |= byte ^ l.shift }
+    res == er_error(e)
+    logger.warn "ERROR: #{e}"
+    @error = e
+
+    raise e
+  end
+
+
+  def secure_compare_1(a, b)
     return false if a.blank? || b.blank? || a.bytesize != b.bytesize
 
     l = a.unpack "C#{a.bytesize}"

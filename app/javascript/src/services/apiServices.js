@@ -32,4 +32,12 @@ export const ApiService = {
       params,
     });
   },
+
+  updateJWTTokenBased(params) {
+    return axios({
+      method: 'post',
+      url: '/api/update_store_property_id',
+      params,
+    });
+  },
 };
