@@ -47,6 +47,11 @@ class OmniauthsController < ApplicationController
 
   def load
     payload = parse_signed_payload
+    p '*' * 50
+    p parse_signed_payload_jwt
+    binding.pry
+    p '*' * 50
+
     @payload = payload
     return render_error('[load] Invalid payload signature!') unless payload
 
@@ -92,11 +97,9 @@ class OmniauthsController < ApplicationController
     payload = Base64.decode64(encoded_json_payload)
     provided_signature = Base64.decode64(encoded_hmac_signature)
     expected_signature = sign_payload(bc_client_secret, payload)
-    if secure_compare(expected_signature, provided_signature)
-      return JSON.parse(payload)
-    end
-
-    nil
+    # if secure_compare(expected_signature, provided_signature)
+    p JSON.parse(payload)
+    # end
   end
 
   def sign_payload(secret, payload)
